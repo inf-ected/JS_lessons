@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+
+    <div id="allBoks">
+        <button id="showAllBookBut">Показать все книги</button><br>
+    </div>
+
+    <div id="addBook">
+        <br>
+        <button id="addBookBut">Добавить книгу</button>
+        <br>
+        <form action="#" name="form1" id="form1">
+            <input type="text" id="bId" placeholder="id" hidden><br>
+            <input type="text" id="bTitle" placeholder="Title"><br>
+            <input type="text" id="bAuth" placeholder="Author"><br>
+            <input type="text" id="bYear" placeholder="Year"><br>
+            <input type="text" id="bPub" placeholder="Publisher"><br>
+            <input type="text" id="bPages" placeholder="Pages"><br>
+            <input type="text" id="bQuantity" placeholder="Quantity"><br>
+        </form>
+    </div>
+
+    <div id="editBook"></div>
+
+    <div id="delBook">
+        <br>
+        <input type="text" id="delById" placeholder="enter id here"><br>
+        <button id="delBookBut">Удалить Книгу</button>
+    </div>
+
+
+
+
+    <script>
+        
+        $(function() {
+            //localStorage.clear();
+            
+            if (localStorage.hasOwnProperty('counter')) {count = localStorage.counter;}
+            else {localStorage.setItem("counter", 1);count=1;}
+        })
+        //• идентификатор;
+        //• название;
+        //• имя автора;
+        //• год издательства;
+        //• название издательства;
+        //• количество страниц;
+        //• количество экземпляров в библиотеке.
+
+        class book {
+            constructor(id, title, author, year, pub, pages, quantity) {
+                this.id = id;
+                this.title = title;
+                this.author = author;
+                this.year = year;
+                this.pub = pub;
+                this.pages = pages;
+                this.quantity = quantity;
+            }
+        }
+        var count;
+        curbook = {};
+
+        //• посмотреть список всех книг;
+        $('#showAllBookBut').click(() => ShowAllBooks());
+
+
+        function ShowAllBooks() {
+
+            for (let i = 1; i <= localStorage.length-1; i++) {
+                let str = localStorage.getItem(i);
+                let book = JSON.parse(str);
+                console.log(book);
+                ShowBook(book);
+            }
+
+        }
+        $('#delBookBut').click(() => delBook($('#delById').val()));
+
+        function delBook(index) {
+            localStorage.removeItem(index);
+        }
+
+        function ShowBook(book) {
+            let bookDiv = $('<div class="book"></div>').html(`
+                    <span>${book.id}</span>
+                    <span>${book.title}</span>
+                    <span>${book.author}</span>
+                    <span>${book.year}</span>
+                    <span>${book.pub}</span>
+                    <span>${book.pages}</span>
+                    <span>${book.quantity}</span>`);
+            $('#allBoks').append(bookDiv);
+        }
+        //• добавить новую книгу;
+        $("#addBookBut").click(() => addBook());
+
+        function addBook() {
+
+            bk = new book( //form1.bId.value,
+                count++,
+                form1.bTitle.value,
+                form1.bAuth.value,
+                form1.bYear.value,
+                form1.bPub.value,
+                form1.bPages.value,
+                form1.bQuantity.value)
+
+            document.form1.reset();
+//            curbook = bk;
+ 
+            localStorage.setItem(bk.id, JSON.stringify(bk));
+            localStorage.setItem("counter", count);
+            
+            $('#allBook').append()
+        }
+
+        function createBook(title, author) {
+            return `<div class="book">
+            <h6>${title}</h6><span>Author:${author}</span>
+        </div>`
+        }
+        //• изменить существующую книгу;
+        //• удалить существующую книгу
+
+    </script>
+
+</body>
+
+</html>
