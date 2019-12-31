@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson-2</title>
+    <script>
+        //    for(var i=0;i<10;i+=5)document.write(i+' ');
+        //        var x = prompt("enter x =", 0);
+        //        var str = "";
+        //        for (var i = 0; i <= x; i++) {
+        //            if (i % 2 == 0) {
+        //                str += i;
+        //                str += (i != x && i != x - 1) ? ", " : ".";
+        //            }
+        //        }
+        //        document.write(str);
+
+
+        //        var x = prompt("enter x =", 0);
+        //        var str = "";
+        //        for (var i = x; i>0; i--) {
+        //            if (i % 2 != 0) {
+        //                str += i;
+        //                str += (i != 1) ? ", " : ".";
+        //            }
+        //        }
+        //        document.write(str);
+
+
+
+        //        var x = prompt("enter x =", 0);
+        //        var str = "";
+        //        for (var i = 1; i<x; i++) {
+        //            if (x % i == 0) {
+        //                str += i;
+        //                str += ( i!=x/2) ? ", " : ".";
+        //            }
+        //        }
+        //        document.write(str);
+
+        //        var x = eval(prompt("enter % =", 0)), 
+        //            deposit =eval(prompt("enter deposit", 1000)),
+        //            year=0, goal=deposit*2;
+        //    
+        //        while(deposit<goal){
+        //            deposit=deposit+deposit*x/100;
+        //            year++;
+        //        }
+        //        document.write(year);
+
+//        var x = 0,
+//            n = Math.floor(Math.random() * 20);
+//        arr = new Array;
+//
+//        while (x < 10) 
+//        {
+//            n = Math.floor(Math.random() * 20);
+//            if (!(n % 4) && !arr.includes(n)) {
+//                arr.push(n);
+//                //document.write( n+"  ");
+//                x++;
+//            }
+//        }
+//
+//        for (i of arr)
+//            document.write(i + " ");
+
+        var volume=eval(prompt("enter volume = ", 100)),
+		rashod=0.1,
+		rezult=0;
+		
+		while(volume >10){
+		volume=volume-volume*rashod;
+		rezult++;
+		}
+        document.write(rezult);
+        
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
