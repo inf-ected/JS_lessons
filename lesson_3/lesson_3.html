@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //получить имя объекта
+        var objName = prompt('Enter an object name: ', 'navigator'); //document location
+        //выводим имя объекта    
+        document.write('<h1>' + objName + '</h1>');
+        //получить объект
+        var obj = eval(objName);
+        //переменная в которой накапливаем строку
+        var str = "";
+        //счетчик строк (свойств объекта)
+        var j = 1;
+
+    </script>
+
+    <!--    <h1><script>document.write(objName)</script></h1>-->
+    <!--Шапка таблицы-->
+    <table border="">
+        <tr>
+            <th>Nr</th>
+            <th>PropertyName</th>
+            <th>PropertyValue</th>
+        </tr>
+        
+        
+        <script>
+            //формируем строки таблицы 
+            for (i in obj) {
+                // i получает имя свойства
+                // obj - объект
+                // obj[i]- значение свойства объекта
+                
+                str += '<tr><td>' + j + '</td><td>' + i + '</td><td>' + obj[i] + '</td></tr>';
+                j++;
+            }
+            //выводим сформированную строку результат
+            document.write(str);
+
+        </script>
+    </table>
+
+</body>
+
+</html>

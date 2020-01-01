@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <form name="form1">
+        <!--        onfocus onblur onchange-->
+        <SELECT NAME="select_object" onBlur="f1(this);">
+            <OPTION VALUE="1" SELECTED>navigator</option>
+            <option>document</option>
+            <option>window</option>
+            <option>location</option>
+            <option>history</option>
+        </SELECT>
+        <input type="button" name="go" value="Show properties!" onClick="f1(this.form.select_object)">
+    </form>
+
+
+
+
+    <script>
+        function f1(obj1) {
+            //получить имя объекта
+            //var objName = prompt('Enter an object name: ', 'navigator'); 
+
+            // select_object.selectedIndex - индекс выбранного элемента
+            // select_object.options[] - массив опшинов
+            // select_object.options[select_object.selectedIndex]  - нужный нам элемент
+            // select_object.options[select_object.selectedIndex].text его текст
+            var objName = document.form1.select_object.options[document.form1.select_object.selectedIndex].text;
+
+
+
+            //document location
+            //выводим имя объекта    
+            document.write('<h1>' + objName + '</h1>');
+            //получить объект
+            var obj = eval(objName);
+            //переменная в которой накапливаем строку
+            var str = "";
+            //счетчик строк (свойств объекта)
+            var j = 1;
+
+
+
+            //<!--    <h1><script>document.write(objName)</1script></h1>-->
+            //<!--Шапка таблицы-->
+
+            str+='<table border="">' +
+                '<tr>' +
+                '<th>Nr</th>' +
+                '<th>PropertyName</th>' +
+                '<th>PropertyValue</th>' +
+                '</tr>';
+
+
+
+            //формируем строки таблицы 
+            for (i in obj) {
+                // i получает имя свойства
+                // obj - объект
+                // obj[i]- значение свойства объекта
+
+                str += '<tr><td>' + j + '</td><td>' + i + '</td><td>' + obj[i] + '</td></tr>';
+
+                j++;
+            }
+            //выводим сформированную строку результат
+            //document.write(str);
+
+            str+='</table>';
+        }
+    </script>
+
+<div class="div1"></div>
+</body></html>
