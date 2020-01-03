@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<img src="t.png" name="slide" height="300" width="260">
+<form name="form1">
+    <input type='button' name="but1" value='Start' style="width:130px;">
+    <input type='button' name="but2" value='Pause' style="width:130px;">
+</form>
+    
+<script>  
+    
+//    var butt1 = document.getElementsByName('but1');
+    var firstBtn = document.querySelector('input[name="but1"]');
+    var secondBtn = document.querySelector('input[name="but2"]');
+    
+    
+    var imgs= new Array;
+    imgs[0] = 't.png';
+    imgs[1] = 'p.png';
+    imgs[2] = 'pe.png';
+    imgs[3] = 'manc.png';
+    
+    var i =0;
+    var flag = 0;// 0 - первы вызов
+function start()
+    {
+        flag = 1;
+        firstBtn.disabled=true;
+        secondBtn.disabled=false;
+        secondBtn.value="Pause";
+        i++;
+        if (i == imgs.length)
+        {
+        i = 0;
+        }
+        document.slide.src=imgs[i];
+        timer=setTimeout('start();', 1000);
+    }
+    
+function stop()
+    {
+        if(secondBtn.value=="Pause")
+        {
+            // stop
+            firstBtn.disabled=false;
+            secondBtn.value="Continue";
+            clearTimeout(timer);
+        }
+        else
+        {
+            // continue
+            start();
+            firstBtn.disabled=true;
+            //document.form1.but2.value="Pause";
+        }
+ 
+        
+    }    
+    
+//    firstBtn.addEventListener('click', start);
+    firstBtn.addEventListener('click', function () {
+        if(flag) i = -1;
+        start();
+    });
+    secondBtn.addEventListener('click', stop);
+    
+</script>
+</body>
+</html>
+
