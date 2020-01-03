@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>lesson 4</title>
+</head>
+
+<body>
+
+    <img src="1.jpg" name='slide' width="300" height="300">
+    <form name='form1'>
+        <input type="button" name="butt1" value="Начать слайд шоу">
+        <input type="button" name="butt2" value="Остановить слайд шоу" disabled>
+    </form>
+
+    <script>
+        var imgs = new Array;
+        imgs[0] = '1.jpg';
+        imgs[1] = '2.jpg';
+        imgs[2] = '3.jpg';
+        imgs[3] = '4.jpg';
+        var i = 0;
+        var timer;
+        var flag = 0;
+        var flg_continue = true;
+
+        function start0() {
+            if (flag) i = -1;
+            start();
+        }
+
+        function start() {
+            flag = 1;
+            document.form1.butt1.disabled = true;
+            document.form1.butt2.disabled = false;
+            document.form1.butt2.value = 'Остановить слайд шоу';
+            flg_continue = true;
+            i++;
+            i %= imgs.length;
+            document.slide.src = imgs[i]
+            timer = setTimeout('start();', 1000);
+
+        }
+
+        function stop() {
+            if (flg_continue) {
+                document.form1.butt1.disabled = false;
+                document.form1.butt2.value = 'Продолжить слайд шоу';
+                clearTimeout(timer);
+            } else {
+                start();
+                document.form1.butt1.disabled = true;
+            }
+
+            flg_continue = !flg_continue;
+        }
+
+
+        form1.butt1.onclick = start0; //DOM 1
+        form1.butt2.addEventListener('click', stop); //DOM 2
+
+        /* 
+        Доступ:
+        var firstBtn = document.querySelector('input[name="but1"]');
+        var secondBtn = document.querySelector('input[name="but2"]');
+            
+        Dариант без доп функции start0
+            firstBtn.addEventListener('click', function () {
+            if(flag) i = -1;
+            start();
+        });
+        */
+    </script>
+</body></html>

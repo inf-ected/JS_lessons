@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>lesson 4</title>
+</head>
+
+<body>
+
+    <img src="1.jpg" name='slide' width="300" height="300">
+    <form name='form1'>
+        <input type="button" name="butt1" value="Начать слайд шоу" onclick='if(flag)i=-1;start();'>
+        <input type="button" name="butt2" value="Остановить слайд шоу" disabled onclick='stop();'>
+    </form>
+
+    <script>
+        var imgs = new Array;
+        imgs[0] = '1.jpg';
+        imgs[1] = '2.jpg';
+        imgs[2] = '3.jpg';
+        imgs[3] = '4.jpg';
+        var i = 0;//,j = 0;
+        var timer;
+        var flag = 0;
+        var flg_continue = true;
+
+        function start() {
+            flag = 1;
+            document.form1.butt1.disabled = true;
+            document.form1.butt2.disabled = false;
+            document.form1.butt2.value = 'Остановить слайд шоу';
+            flg_continue = true;
+            i++;
+            i %= imgs.length;
+            //            if (i == imgs.length) {
+            //                i = 0;
+            //            }
+            document.slide.src = imgs[i]
+
+            timer = setTimeout('start();', 1000);
+
+        }
+
+        function stop() {
+            //     if (document.form1.butt2.value == 'Остановить слайд шоу') {
+            if (flg_continue) {
+                //            j++;
+                //            if (j % 2) {
+                //stop        
+                document.form1.butt1.disabled = false;
+                document.form1.butt2.value = 'Продолжить слайд шоу';
+                clearTimeout(timer);
+            } else {
+                //continue
+                start();
+                document.form1.butt1.disabled = true;
+                //document.form1.butt2.value = 'Остановить слайд шоу';
+            }
+
+            flg_continue = !flg_continue;
+        }
+    </script>
+</body></html>
