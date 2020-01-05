@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>КАЛЬКУЛЯТОР</title>
+    <style>
+        td {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+
+        input {
+            width: 50px;
+            height: 50px;
+            background-color: darkgrey;
+            color: aliceblue;
+            font-size: 18px;
+        }
+
+        #display {
+            width: 260px;
+            background-color: beige;
+            color: darkslategray;
+            font-size: 28px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form name="calc">
+        <table>
+            <tr>
+                <td colspan="5"><input id='display' name='display' value='0' /> </td>
+            </tr>
+            <tr>
+                <td><input type="button" value="%" name="batt_proc" onclick='procent();'></td>
+                <td><input type="button" value="CE" name="batt_CE" onclick='clearCE();'></td>
+                <td><input type="button" value="C" name="batt_C" onclick='clearC();rez1=prevOp1=val1="";'></td>
+                <td><input type="button" value=" &#9001;= " name="batt_bck" onclick='bck();'></td>
+                <td><input type="button" value="/" name="batt_div" onclick='operators(this.value);'></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="&radic;" name="batt_root" onclick='root();'></td>
+                <td><input type="button" value="7" name="batt7" onclick='num(this.value);'></td>
+                <td><input type="button" value="8" name="batt8" onclick='num(this.value);'></td>
+                <td><input type="button" value="9" name="batt9" onclick='num(this.value);'></td>
+                <td><input type="button" value="*" name="batt_mult" onclick='operators(this.value);'></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="X &sup2; " name="batt_pow" onclick='pow();'></td>
+                <td><input type="button" value="4" name="batt4" onclick='num(this.value);'></td>
+                <td><input type="button" value="5" name="batt5" onclick='num(this.value);'></td>
+                <td><input type="button" value="6" name="batt6" onclick='num(this.value);'></td>
+                <td><input type="button" value="-" name="batt_minus" onclick='operators(this.value);'></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="X &sup3;" name="batt_pow3"></td>
+                <td><input type="button" value="1" name="batt1" onclick='num(this.value);'></td>
+                <td><input type="button" value="2" name="batt2" onclick='num(this.value);'></td>
+                <td><input type="button" value="3" name="batt3" onclick='num(this.value);'></td>
+                <td><input type="button" value="+" name="batt_plus" onclick='operators(this.value);'></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="&sup1/x" name="batt_divX" onclick="divX();"></td>
+                <td><input type="button" value="+/-" name="batt_pm" onclick='plusMinus();'></td>
+                <td><input type="button" value="0" name="batt0" onclick='num(this.value);'></td>
+                <td><input type="button" value=" , " name="batt_float" onclick='flt();'></td>
+                <td><input type="button" value="=" name="batt_rezult" onclick='equals();'></td>
+            </tr>
+
+            <!--
+            <tr>
+                <td colspan='5'><button value1="1/x" name="batt_test" onclick='show();'>
+                        show</button></td>
+
+            </tr>
+-->
+
+        </table>
+    </form>
+    <hr>
+    <input type="button" value="SHW" name="test" onclick='show();'>
+    <div id="d1"></div>
+    <br>
+    <div id="d2"></div>
+    <br>
+    <div id="d3"></div>
+    <br>
+    <div id="d4"></div>
+
+
+    <script>
+        var firstDigit = 1; //1- первая цифра нового числа; 0 - НЕ первая цифра  числа
+        var result = ''; //переменная для хранения промежуточных результатов вычислений
+        var prevOperator = '';
+        var rez1 = '',
+            prevOp1 = '',
+            val1 = '';
+
+        function num(x) {
+            if (prevOperator == '/' && x == 0) {
+                alert('на ноль делить низззя! \n замененно на 1');
+                x = 1;
+            }
+            if (firstDigit) {
+                calc.display.value = x;
+                firstDigit = 0;
+            } else {
+                calc.display.value += x;
+            }
+
+
+        }
+
+        function operators(y) {
+            if (!firstDigit) {
+                result = eval(result + prevOperator + calc.display.value);
+                //alert(result);
+                calc.display.value = result;
+                firstDigit = 1;
+            }
+
+            prevOperator = y;
+            /*************/
+            //if(prevOp1!='')result = eval(rez1+prevOp1+val1);
+        }
+
+        function plusMinus() {
+            calc.display.value *= -1;
+        }
+
+        function clearC() {
+            clearCE()
+            result = '';
+            prevOperator = '';
+        }
+
+        function clearCE() {
+            calc.display.value = calc.display.defaultValue;
+            firstDigit = 1;
+        }
+
+//        function clear() {
+//            rez1 = '';
+//            prevOp1 = '';
+//            val1 = '';
+//        }
+
+        function root() {
+            if (calc.display.value < 0) {
+                /* alert('Отрицательное значение в корне !');
+                 clearC();*/
+                clearC();
+                calc.display.value = 'Отрицательное значение в корне !';
+
+                return;
+            }
+            calc.display.value = Math.sqrt(calc.display.value);
+
+        }
+
+        function pow() {
+            //calc.display.value = Math.pow(calc.display.value, 2);
+            calc.display.value *= calc.display.value;
+
+        }
+
+        function divX() {
+            if (calc.display.value == 0) {
+                alert('делить на ноль низя !');
+                return;
+            }
+            result = calc.display.value = 1 / calc.display.value;
+        }
+
+        function procent() {
+
+            calc.display.value = eval(result * calc.display.value / 100);
+            firstDigit = 1;
+        }
+
+        function bck() {
+
+            tmp = calc.display.value;
+            last = tmp.length - 1;
+            if (!last) {
+                tmp = calc.display.defaultValue;
+                firstDigit = 1;
+            } else {
+                tmp = tmp.substr(0, last);
+            }
+            calc.display.value = tmp;
+        }
+
+        function flt() {
+            if (firstDigit) {
+                calc.display.value = '0.';
+                firstDigit = 0;
+                return;
+            }
+            tmp = calc.display.value;
+            if (tmp.indexOf('.') < 0) {
+                calc.display.value += '.';
+            }
+        }
+
+        
+
+
+
+        
+        
+        
+        function equals(){
+		if(!firstDigit){
+            /************firstDigit-0***********/
+            //alert('if ');
+            if(prevOperator==''){
+                 //alert('if-if');
+                prevOperator=prevOp1;
+                result=calc.display.value;
+                calc.display.value=val1;
+                
+            }
+			rez1=result;
+			prevOp1=prevOperator;
+			val1=calc.display.value;
+			clearC();
+			calc.display.value=eval(rez1+prevOp1+val1);
+            
+			}
+		else
+            {
+             /*********firstDigit-1*************/
+                //alert('else');
+		      calc.display.value=eval(calc.display.value+prevOp1+val1);
+            }
+            
+        result=calc.display.value;
+        firstDigit=1;    
+		}
+        
+        
+
+        function show() {
+
+            d1.innerHTML = 'result: ' + result + '<br> prevOperator: ' + prevOperator + '<br> firstDigit: ' + firstDigit;
+            d1.innerHTML += '<br> rez1: ' + rez1 + '<br> prevOp1: ' + prevOp1 + '<br> val1: ' + val1;
+
+        }
+
+
+        /* то что делали на уроке
+        function equals(){
+		if(!firstDigit){
+			rez1=result;
+			prevOp1=prevOperator;
+			val1=calc.display.value;
+			clearC();
+			calc.display.value=eval(rez1+prevOp1+val1);
+			}
+		else{
+		calc.display.value=eval(calc.display.value+prevOp1+val1);
+		}
+		}
+        */
+    </script>
+</body></html>
