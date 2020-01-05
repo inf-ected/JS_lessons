@@ -1,0 +1,10 @@
+input {
+    font-size: 20px;
+    margin-left: 10px;
+    width: 50px;
+}
+
+#res {
+    width: 240px;
+    text-align: right;
+}

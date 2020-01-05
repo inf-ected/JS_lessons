@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
+</head>
+<body onLoad = init(this)>
+    <form name="calc">
+        <input id='res' type="text" name="res" maxlength="20" value="0" readonly><br><br>
+        
+        <input type="button" name="perc" value="%" onCLick="procent(res);">
+        <input type="button" name="rad" value="&radic;" onCLick="koreni(res);">
+        <input type="button" name="q" value="x2" onClick="kvadrat(res);">
+        <input type="button" name="1_x" value="1/x" onClick="one_x(res);"><br><br>
+        
+        <input type="button" name="clear" value="CE" onClick="CE();">
+        <input type="button" name="clear_all" value="C" onClick="C();">
+        <input type="button" name="backspace" value="&lArr;" onClick="BS(res);">
+        <input type="button" name="del" value="&divide;" onClick="operators(res, '/')"><br><br> 
+        
+        <input type="button" name="seven" value="7" onClick="cin_num(this.value);">
+        <input type="button" name="eight" value="8"onClick="cin_num(this.value);">
+        <input type="button" name="nine" value="9" onClick="cin_num(this.value);">
+        <input type="button" name="proiz" value="&times;" onClick="operators(res, '*')"><br><br>
+        
+        <input type="button" name="four" value="4" onClick="cin_num(this.value);">
+        <input type="button" name="five" value="5" onClick="cin_num(this.value);">
+        <input type="button" name="six" value="6" onClick="cin_num(this.value);">
+        <input type="button" name="minus" value="&#8722;" onClick="operators(res, '-')"><br><br>
+        
+        <input type="button" name="one" value="1" onClick="cin_num(this.value);">
+        <input type="button" name="two" value="2" onClick="cin_num(this.value);">
+        <input type="button" name="three" value="3" onClick="cin_num(this.value);">
+        <input type="button" name="plus" value="+" onClick="operators(res, '+')"><br><br>
+        
+        <input type="button" name="pl_min" value="&#177;" onClick="plus_minus();">
+        <input type="button" name="nul" value="0" onClick="cin_num(this.value)">
+        <input type="button" name="punct" value="." onClick="tochka(res);">
+        <input type="button" name="egal" value="=" onClick="ravno(res);"><br><br>
+        
+    </form>
+</body>
+</html>
