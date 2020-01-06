@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Phone book</title>
+    <style>
+        body {
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .erorr {
+            color: red;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h2>Add new contact</h2>
+    <form method='GET' name="form1">
+        <b>Name</b><input type="text" placeholder="Enter name" /><br /><br />
+        <span id="name_erorr" class="erorr"></span>
+        <input name="user" type="submit" value="Save" onclick="check_form(this.form);" />
+        <input type="button" value="One more phone" onclick="add_click()" style="margin-left:50px" />
+        <br /><br />
+        Phone number <input type="text" name="phone[]" id="ph" placeholder="Enter phone number" />
+        Phone type <select name="type">
+            <option value="1" selected>Cellular</option>
+            <option value="2">Home</option>
+            <option value="3">Work</option>
+        </select>
+        Priority <input type="radio" name="main" value="1" checked />
+        <div id="addPhone"></div>
+    </form>
+
+
+
+    <script>
+        var name_regexp = /^[a-z]{1,15}$/i;
+
+        function check_form(f) {
+            name_val = f.user.value
+            if (!name_regexp.test(name_val)) {
+                document.getElementById('name_erorr').innerHTML = 'Name is wrong !';
+                return false;
+            }
+        }
+
+        function add_click() {
+            addPhone.innerHTML += '<br /><br />Phone number <input type="text" name="phone[]" id="ph" placeholder="Enter phone number" />Phone type <select name="type"><option value="1" selected>Cellular</option><option value="2">Home</option> <option value="3">Work</option>  </select>Priority <input type="radio" name="main" value="1"  />';
+        }
+
+    </script>
+</body>
+
+</html>
