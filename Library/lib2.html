@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+
+    <div id="allBoks">
+
+    </div>
+    <button id="showAllBookBut">Показать все книги</button><br>
+    <div id="addBook">
+        <br>
+        <form action="#" name="form1" id="form1">
+            <input type="text" id="bId" placeholder="id" hidden><br>
+            <input type="text" id="bTitle" placeholder="Title"><br>
+            <input type="text" id="bAuth" placeholder="Author"><br>
+            <input type="text" id="bYear" placeholder="Year"><br>
+            <input type="text" id="bPub" placeholder="Publisher"><br>
+            <input type="text" id="bPages" placeholder="Pages"><br>
+            <input type="text" id="bQuantity" placeholder="Quantity"><br>
+        </form>
+        <br>
+        <button id="addBookBut">Добавить книгу</button>
+        <br>
+    </div>
+
+    <div id="editBook"></div>
+
+    <div id="delBook">
+        <br>
+        <input type="text" id="delById" placeholder="enter id here"><br>
+        <button id="delBookBut">Удалить Книгу</button>
+    </div>
+
+
+
+    <script>
+        var curDataObj = {};
+        /*
+        numerator:
+        library[]
+        visitors[]
+        cards[]
+        */
+        class book {
+            constructor(id, title, author, year, pub, pages, quantity) {
+                this.id = id;
+                this.title = title;
+                this.author = author;
+                this.year = year;
+                this.pub = pub;
+                this.pages = pages;
+                this.quantity = quantity;
+            }
+        }
+
+        $(function() {
+            //localStorage.clear();
+
+            if (localStorage.hasOwnProperty('numerator')) {
+                ReadFromStor();
+            } else {
+                localStorage.setItem("numerator", 1); //alert();
+                InitCurObj();
+                SaveToStor();
+            }
+            window.addEventListener("unload", () => SaveToStor());
+        })
+        //функция инициализации объекта
+        function InitCurObj() {
+            curDataObj['numerator'] = 1;
+            curDataObj['library'] = new Array();
+            curDataObj['visitors'] = new Array();
+            curDataObj['cards'] = new Array();
+        }
+        //функция чтения из стораджа в объект
+        function ReadFromStor() {
+            curDataObj['numerator'] = localStorage.getItem('numerator');
+            curDataObj['library'] = JSON.parse(localStorage.getItem('library'));
+            curDataObj['visitors'] = JSON.parse(localStorage.getItem('visitors'));
+            curDataObj['cards'] = JSON.parse(localStorage.getItem('cards'));
+        }
+        //функция записи объекта в сторадж
+        function SaveToStor() {
+            localStorage.clear();
+            localStorage.setItem("numerator", curDataObj['numerator']);
+            localStorage.setItem("library", JSON.stringify(curDataObj['library']));
+            localStorage.setItem("visitors", JSON.stringify(curDataObj['visitors']));
+            localStorage.setItem("cards", JSON.stringify(curDataObj['cards']));
+        }
+
+
+        //• добавить новую книгу;
+        $("#addBookBut").click(() => addBook());
+
+        function addBook() {
+            bk = new book(
+                curDataObj['numerator']++,
+                form1.bTitle.value,
+                form1.bAuth.value,
+                form1.bYear.value,
+                form1.bPub.value,
+                form1.bPages.value,
+                form1.bQuantity.value)
+            document.form1.reset();
+            curDataObj['library'].push(bk);
+            SaveToStor();
+        }
+
+        //• посмотреть список всех книг;
+        $('#showAllBookBut').click(() => ShowAllBooks());
+
+        function ShowAllBooks() {
+            $('#allBoks').empty();
+            for (bk of curDataObj.library) {
+                ShowBook(bk);
+            }
+        }
+
+        //* показать одну книгу по объекту
+        function ShowBook(book) {
+            let bookDiv = $('<div class="book"></div>').html(`
+                    <span>${book.id}</span>
+                    <span>${book.title}</span>
+                    <span>${book.author}</span>
+                    <span>${book.year}</span>
+                    <span>${book.pub}</span>
+                    <span>${book.pages}</span>
+                    <span>${book.quantity}</span>`);
+            $('#allBoks').append(bookDiv);
+        }
+        //• удалить существующую книгу
+        $('#delBookBut').click(() => delBook($('#delById').val()));
+
+        function delBook(index) {
+            //проход по всему массиву
+            //            for(let i =0;i<curDataObj.library.length;i++)
+            //                    if (curDataObj.library[i].id==index)  curDataObj.library.splice(i,1);
+
+            //достаточно удалить первое вхождение так как нумератор гарантированно уникален
+            curDataObj.library.splice(curDataObj.library.findIndex(elem => elem.id === index), 1);
+            $('#showAllBookBut').click();
+        }
+
+    </script>
+</body>
+
+</html>
