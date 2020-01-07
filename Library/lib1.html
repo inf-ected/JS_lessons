@@ -81,17 +81,12 @@
             for (let i = 1; i <= localStorage.length-1; i++) {
                 let str = localStorage.getItem(i);
                 let book = JSON.parse(str);
-                console.log(book);
+                //console.log(book);
                 ShowBook(book);
             }
 
         }
-        $('#delBookBut').click(() => delBook($('#delById').val()));
-
-        function delBook(index) {
-            localStorage.removeItem(index);
-        }
-
+        //* показать одну книгу по объекту
         function ShowBook(book) {
             let bookDiv = $('<div class="book"></div>').html(`
                     <span>${book.id}</span>
@@ -103,11 +98,21 @@
                     <span>${book.quantity}</span>`);
             $('#allBoks').append(bookDiv);
         }
+        
+        
+        
+        //• удалить существующую книгу
+        $('#delBookBut').click(() => delBook($('#delById').val()));
+
+        function delBook(index) {
+            localStorage.removeItem(index);
+        }
+
+        
         //• добавить новую книгу;
         $("#addBookBut").click(() => addBook());
 
         function addBook() {
-
             bk = new book( //form1.bId.value,
                 count++,
                 form1.bTitle.value,
@@ -123,7 +128,7 @@
             localStorage.setItem(bk.id, JSON.stringify(bk));
             localStorage.setItem("counter", count);
             
-            $('#allBook').append()
+           // $('#allBook').append()
         }
 
         function createBook(title, author) {
@@ -132,7 +137,6 @@
         </div>`
         }
         //• изменить существующую книгу;
-        //• удалить существующую книгу
 
     </script>
 
