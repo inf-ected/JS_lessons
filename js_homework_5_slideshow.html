@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>lesson 4</title>
+</head>
+
+<body>
+
+    <img src="1.jpg" name='slide' width="300" height="300">
+    <form name='form1'>
+        <!--   <input type="button" name="butt1" value="Начать слайд шоу" onclick='if(j!=0)i=-1;act_but2();start();'>    -->
+        <!--        <input type="button" name="butt1" value="Начать слайд шоу" onclick='if(j!=0)i=-1;start();'>-->
+        <input type="button" name="butt1" value="Начать слайд шоу" onclick='(j_flag)?AnotherStart():firstStart();'>
+        <input type="button" name="butt2" value="Остановить слайд шоу" disabled onclick=' stop();'>
+    </form>
+
+    <script>
+        var imgs = new Array;
+        imgs[0] = '1.jpg';
+        imgs[1] = '2.jpg';
+        imgs[2] = '3.jpg';
+        imgs[3] = '4.jpg';
+        var i = 0;
+        var j = 0; j_flag=true;//счетчик кликов второй кнопки
+        //        var k = 0; //счетчик кликов первой кнопки
+        var timer, timer2;
+
+      
+        //********************************************************************
+
+
+
+        function start() {
+
+            document.form1.butt1.disabled = true;
+            document.form1.butt2.disabled = false;
+
+            i++;
+            i %= imgs.length;
+            document.slide.src = imgs[i]
+
+            //timer=setTimeout('start();',1000);
+
+        }
+
+        function firstStart() {
+            i=0;
+            timer = setInterval('start()', 1000);
+            document.form1.butt2.value = 'Остановить слайд шоу';
+        }
+
+        function AnotherStart() {
+            clearTimeout(timer);clearTimeout(timer2);
+            timer2 = setInterval('start()', 1000);
+            document.form1.butt2.value = 'Остановить слайд шоу';
+        }
+
+        function stop() {
+            document.form1.butt1.disabled = false;
+            
+
+            if (j_flag) {
+                
+                document.form1.butt2.value = 'Продолжить слайд шоу';
+                clearTimeout(timer);clearTimeout(timer2);
+            } else {
+                
+                document.form1.butt2.value = 'Остановить слайд шоу';
+                AnotherStart();
+                
+            }
+            j_flag=!j_flag;
+            //clearTimeout(timer);
+
+        }
+
+    </script>
+</body>
+
+</html>
